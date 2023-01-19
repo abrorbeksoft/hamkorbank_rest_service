@@ -23,12 +23,12 @@ func SetUpAPI(r *gin.Engine, h handlers.Handler, cfg config.Config) {
 	r.GET("/config", h.GetConfig)
 
 	v1 := r.Group("/v1")
-	// @securityDefinitions.apikey ApiKeyAuth
-	// @in header
-	// @name Authorization
 
 	v1.Use()
 	{
+		v1.GET("phone/:ID", h.GetPhone)
+		v1.GET("phone", h.GetAllPhones)
+
 	}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

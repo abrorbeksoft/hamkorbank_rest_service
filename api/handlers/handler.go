@@ -4,6 +4,7 @@ import (
 	"rest_service/api/http"
 	"rest_service/config"
 	"rest_service/pkg/logger"
+	"rest_service/storage"
 
 	"strconv"
 
@@ -11,14 +12,16 @@ import (
 )
 
 type Handler struct {
-	cfg config.Config
-	log logger.LoggerI
+	cfg     config.Config
+	log     logger.LoggerI
+	storage storage.StorageI
 }
 
-func NewHandler(cfg config.Config, log logger.LoggerI) Handler {
+func NewHandler(cfg config.Config, log logger.LoggerI, storage storage.StorageI) Handler {
 	return Handler{
-		cfg: cfg,
-		log: log,
+		cfg:     cfg,
+		log:     log,
+		storage: storage,
 	}
 }
 

@@ -93,6 +93,91 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/v1/phone": {
+            "get": {
+                "description": "this returns phone message is exists",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "returns all phone from server",
+                "responses": {
+                    "200": {
+                        "description": "Response data",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/http.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/http.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/phone/{ID}": {
+            "get": {
+                "description": "this returns phone if exists",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "returns phone from server",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "ID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response data",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/http.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/http.Response"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -157,6 +242,24 @@ const docTemplate = `{
                 "posServiceHost": {
                     "type": "string"
                 },
+                "postgresDatabase": {
+                    "type": "string"
+                },
+                "postgresHost": {
+                    "type": "string"
+                },
+                "postgresMaxConnections": {
+                    "type": "integer"
+                },
+                "postgresPassword": {
+                    "type": "string"
+                },
+                "postgresPort": {
+                    "type": "integer"
+                },
+                "postgresUser": {
+                    "type": "string"
+                },
                 "serviceHost": {
                     "type": "string"
                 },
@@ -179,13 +282,6 @@ const docTemplate = `{
                     "type": "string"
                 }
             }
-        }
-    },
-    "securityDefinitions": {
-        "ApiKeyAuth": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
         }
     }
 }`

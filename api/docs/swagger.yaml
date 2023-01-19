@@ -40,6 +40,18 @@ definitions:
         type: string
       posServiceHost:
         type: string
+      postgresDatabase:
+        type: string
+      postgresHost:
+        type: string
+      postgresMaxConnections:
+        type: integer
+      postgresPassword:
+        type: string
+      postgresPort:
+        type: integer
+      postgresUser:
+        type: string
       serviceHost:
         type: string
       serviceName:
@@ -106,9 +118,54 @@ paths:
           schema:
             $ref: '#/definitions/http.Response'
       summary: returns "pong" message
-securityDefinitions:
-  ApiKeyAuth:
-    in: header
-    name: Authorization
-    type: apiKey
+  /v1/phone:
+    get:
+      consumes:
+      - application/json
+      description: this returns phone message is exists
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Response data
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.Response'
+      summary: returns all phone from server
+  /v1/phone/{ID}:
+    get:
+      consumes:
+      - application/json
+      description: this returns phone if exists
+      parameters:
+      - description: ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Response data
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.Response'
+      summary: returns phone from server
 swagger: "2.0"
