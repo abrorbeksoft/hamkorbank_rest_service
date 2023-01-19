@@ -1,0 +1,114 @@
+definitions:
+  config.Config:
+    properties:
+      analyticsGRPCPort:
+        type: string
+      analyticsServiceHost:
+        type: string
+      authGRPCPort:
+        type: string
+      authServiceHost:
+        type: string
+      corporateGRPCPort:
+        type: string
+      corporateServiceHost:
+        type: string
+      defaultLimit:
+        type: string
+      defaultOffset:
+        type: string
+      environment:
+        description: debug, test, release
+        type: string
+      httpport:
+        type: string
+      httpscheme:
+        type: string
+      minioAccessKeyID:
+        type: string
+      minioEndpoint:
+        type: string
+      minioSSL:
+        type: boolean
+      minioSecretAccessKey:
+        type: string
+      objectBuilderGRPCPort:
+        type: string
+      objectBuilderServiceHost:
+        type: string
+      posGRPCPort:
+        type: string
+      posServiceHost:
+        type: string
+      serviceHost:
+        type: string
+      serviceName:
+        type: string
+      version:
+        type: string
+    type: object
+  http.Response:
+    properties:
+      data: {}
+      description:
+        type: string
+      status:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a api gateway
+paths:
+  /config:
+    get:
+      consumes:
+      - application/json
+      description: show service config data when the service environment set to debug
+        mode
+      operationId: get_config
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Response data
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/config.Config'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.Response'
+      summary: get config data on the debug mode
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: this returns "pong" messsage to show service is working
+      operationId: ping
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Response data
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.Response'
+      summary: returns "pong" message
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
