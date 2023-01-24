@@ -48,5 +48,5 @@ linter:
 clear:
 	rm -rf ${CURRENT_DIR}/bin/*
 
-
-#migrate -path=rest_service/migrations/postgres -database="postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable" up
+migrate:
+	migrate -path=${CURRENT_DIR}/migrations/postgres -database="postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable" up
